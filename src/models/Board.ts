@@ -16,13 +16,19 @@ export class Board {
             const row: Cell[] = []
             for (let j = 0; j < 8; j++) {
                 if((i+j)% 2 !== 0) {
-                    row.push(new Cell(this, j, i, Colors.BLACK, null)) // black cell
+                    row.push(new Cell(this, i, j, Colors.BLACK, null)) // black cell
                 } else {
-                    row.push(new Cell(this, j, i, Colors.WHITE, null)) // white cell
+                    row.push(new Cell(this, i, j, Colors.WHITE, null)) // white cell
                 }
             }
             this.cells.push(row);
         }
+    }
+
+    public getCopyBoard (): Board {
+        const newBoard = new Board();
+        newBoard.cells = this.cells;
+        return newBoard;
     }
 
     public highlightCells(selectedCell: Cell | null) {
@@ -51,7 +57,7 @@ export class Board {
     }
     private addQueens() {
         new Queen(Colors.BLACK, this.getCell(3, 0) )
-        new Pawn(Colors.WHITE, this.getCell(3,7) )
+        new Queen(Colors.WHITE, this.getCell(3,7) )
     }
     private addHorses () {
         new Horse(Colors.BLACK, this.getCell(1, 0) )
